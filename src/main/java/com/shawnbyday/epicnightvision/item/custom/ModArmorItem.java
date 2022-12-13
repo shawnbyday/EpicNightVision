@@ -2,7 +2,6 @@ package com.shawnbyday.epicnightvision.item.custom;
 
 import com.google.common.collect.ImmutableMap;
 import com.shawnbyday.epicnightvision.item.ModArmorMaterials;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
