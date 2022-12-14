@@ -1,1 +1,1 @@
-# EpicNightVision
+# SimpleNightVision
