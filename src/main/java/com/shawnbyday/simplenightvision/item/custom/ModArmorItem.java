@@ -1,7 +1,7 @@
-package com.shawnbyday.epicnightvision.item.custom;
+package com.shawnbyday.simplenightvision.item.custom;
 
 import com.google.common.collect.ImmutableMap;
-import com.shawnbyday.epicnightvision.item.ModArmorMaterials;
+import com.shawnbyday.simplenightvision.item.ModArmorMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ModArmorItem extends ArmorItem {
-    private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP = (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>()).put(ModArmorMaterials.GOGGLES, new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 1)).build();
+    private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP = (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>()).put(ModArmorMaterials.HELMET, new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 1)).build();
 
     public ModArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
         super(material, slot, settings);
@@ -23,7 +23,7 @@ public class ModArmorItem extends ArmorItem {
     @Override
     public void onArmorTick(ItemStack stack, Level world, Player player) {
         if(!world.isClientSide()) {
-            if(hasGogglesOn(player)) {
+            if(hasHelmetOn(player)) {
                 evaluateArmorEffects(player);
             }
         }
@@ -34,7 +34,7 @@ public class ModArmorItem extends ArmorItem {
             ArmorMaterial mapArmorMaterial = entry.getKey();
             MobEffectInstance mapStatusEffect = entry.getValue();
 
-            if(hasCorrectGogglesOn(mapArmorMaterial, player)) {
+            if(hasCorrectHelmetOn(mapArmorMaterial, player)) {
                 addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
             }
         }
@@ -43,7 +43,7 @@ public class ModArmorItem extends ArmorItem {
     private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffectInstance mapStatusEffect) {
         boolean hasPlayerEffect = player.hasEffect(mapStatusEffect.getEffect());
 
-        if(hasCorrectGogglesOn(mapArmorMaterial, player) && !hasPlayerEffect) {
+        if(hasCorrectHelmetOn(mapArmorMaterial, player) && !hasPlayerEffect) {
             player.addEffect(new MobEffectInstance(mapStatusEffect.getEffect(), mapStatusEffect.getDuration(), mapStatusEffect.getAmplifier()));
         } else {
             if(player.hasEffect(MobEffects.NIGHT_VISION)) {
@@ -55,15 +55,15 @@ public class ModArmorItem extends ArmorItem {
         }
     }
 
-    private boolean hasGogglesOn(Player player) {
-        ItemStack goggles = player.getInventory().getArmor(3);
+    private boolean hasHelmetOn(Player player) {
+        ItemStack helmet = player.getInventory().getArmor(3);
 
-        return !goggles.isEmpty();
+        return !helmet.isEmpty();
     }
 
-    private boolean hasCorrectGogglesOn(ArmorMaterial material, Player player) {
-        ArmorItem goggles = ((ArmorItem)player.getInventory().getArmor(3).getItem());
+    private boolean hasCorrectHelmetOn(ArmorMaterial material, Player player) {
+        ArmorItem helmet = ((ArmorItem)player.getInventory().getArmor(3).getItem());
 
-        return goggles.getMaterial() == material;
+        return helmet.getMaterial() == material;
     }
 }

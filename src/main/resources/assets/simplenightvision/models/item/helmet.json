@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "epicnightvision:item/goggles"
+    "layer0": "simplenightvision:item/helmet"
   }
 }

@@ -5,8 +5,8 @@ plugins {
 }
 
 version = '1.0'
-group = 'com.shawnbyday.epicnightvision' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'epicnightvision'
+group = 'com.shawnbyday.simplenightvision' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'simplenightvision'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -49,10 +49,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'epicnightvision'
+            property 'forge.enabledGameTestNamespaces', 'simplenightvision'
 
             mods {
-                epicnightvision {
+                simplenightvision {
                     source sourceSets.main
                 }
             }
@@ -65,10 +65,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'epicnightvision'
+            property 'forge.enabledGameTestNamespaces', 'simplenightvision'
 
             mods {
-                epicnightvision {
+                simplenightvision {
                     source sourceSets.main
                 }
             }
@@ -84,10 +84,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'epicnightvision'
+            property 'forge.enabledGameTestNamespaces', 'simplenightvision'
 
             mods {
-                epicnightvision {
+                simplenightvision {
                     source sourceSets.main
                 }
             }
@@ -104,7 +104,7 @@ minecraft {
             args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                epicnightvision {
+                simplenightvision {
                     source sourceSets.main
                 }
             }
@@ -160,7 +160,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "epicnightvision",
+                "Specification-Title"     : "simplenightvision",
                 "Specification-Vendor"    : "shawnbyday",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,

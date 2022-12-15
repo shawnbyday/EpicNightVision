@@ -1,6 +1,6 @@
-package com.shawnbyday.epicnightvision.item;
+package com.shawnbyday.simplenightvision.item;
 
-import com.shawnbyday.epicnightvision.EpicNightVision;
+import com.shawnbyday.simplenightvision.SimpleNightVision;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
@@ -12,8 +12,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
-    GOGGLES("goggles", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, () -> {
-        return Ingredient.of(Items.DIAMOND);
+    HELMET("helmet", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, () -> {
+        return Ingredient.of(Items.EMERALD);
     });
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
@@ -58,7 +58,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
     }
 
     public String getName() {
-        return EpicNightVision.MOD_ID + ":" + this.name;
+        return SimpleNightVision.MOD_ID + ":" + this.name;
     }
 
     public float getToughness() {
