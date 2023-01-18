@@ -1,3 +1,4 @@
+/*
 package com.shawnbyday.simplenightvision.item;
 
 import net.minecraft.world.item.CreativeModeTab;
@@ -11,3 +12,4 @@ public class ModCreativeModeTab {
         }
     };
 }
+*/
