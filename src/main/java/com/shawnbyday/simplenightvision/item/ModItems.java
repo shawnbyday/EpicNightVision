@@ -14,7 +14,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SimpleNightVision.MOD_ID);
 
     public static final RegistryObject<Item> HELMET = ITEMS.register("helmet", () -> new ModArmorItem(ModArmorMaterials.HELMET, EquipmentSlot.HEAD, new Item.Properties() /* new Item.Properties().tab(ModCreativeModeTab.ENV_TAB) */));
-
+    public static final RegistryObject<Item> NETHERITE_HELMET = ITEMS.register("netherite_helmet", () -> new ModArmorItem(ModArmorMaterials.NETHERITE_HELMET, EquipmentSlot.HEAD, new Item.Properties()));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

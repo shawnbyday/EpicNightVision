@@ -11,5 +11,4 @@ public class ModCreativeModeTab {
             return new ItemStack(ModItems.HELMET.get());
         }
     };
-}
-*/
+} */
