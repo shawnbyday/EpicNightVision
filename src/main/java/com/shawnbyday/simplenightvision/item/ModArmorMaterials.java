@@ -8,13 +8,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
-    HELMET("helmet", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, () -> {
-        return Ingredient.of(Items.EMERALD);
-    });
+    HELMET("helmet", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, () -> Ingredient.of(Items.EMERALD)),
+    NETHERITE_HELMET("netherite_helmet", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ARMOR_EQUIP_NETHERITE, 2.0F, 0.0F, () -> Ingredient.of(Items.NETHERITE_INGOT));
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
     private final String name;
@@ -26,7 +26,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    private ModArmorMaterials(String p_40474_, int p_40475_, int[] p_40476_, int p_40477_, SoundEvent p_40478_, float p_40479_, float p_40480_, Supplier<Ingredient> p_40481_) {
+    ModArmorMaterials(String p_40474_, int p_40475_, int[] p_40476_, int p_40477_, SoundEvent p_40478_, float p_40479_, float p_40480_, Supplier<Ingredient> p_40481_) {
         this.name = p_40474_;
         this.durabilityMultiplier = p_40475_;
         this.slotProtections = p_40476_;
@@ -49,14 +49,17 @@ public enum ModArmorMaterials implements ArmorMaterial {
         return this.enchantmentValue;
     }
 
+    @NotNull
     public SoundEvent getEquipSound() {
         return this.sound;
     }
 
+    @NotNull
     public Ingredient getRepairIngredient() {
         return this.repairIngredient.get();
     }
 
+    @NotNull
     public String getName() {
         return SimpleNightVision.MOD_ID + ":" + this.name;
     }
