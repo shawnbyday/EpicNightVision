@@ -15,8 +15,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ModArmorItem extends ArmorItem {
-    private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP = (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>()).put(ModArmorMaterials.HELMET, new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 1)).build();
-
+    private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP = (new ImmutableMap.Builder<ArmorMaterial,
+            MobEffectInstance>()).put(ModArmorMaterials.HELMET, new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 1))
+                                 .put(ModArmorMaterials.NETHERITE_HELMET, new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 1)).build();
     public ModArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
         super(material, slot, settings);
     }
