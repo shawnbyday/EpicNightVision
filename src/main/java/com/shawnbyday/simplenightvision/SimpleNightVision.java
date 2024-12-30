@@ -2,23 +2,11 @@ package com.shawnbyday.simplenightvision;
 
 import com.shawnbyday.simplenightvision.item.ModCreativeModeTabs;
 import com.shawnbyday.simplenightvision.item.ModItems;
-import org.slf4j.Logger;
+// import org.slf4j.Logger;
 
-import com.mojang.logging.LogUtils;
+// import com.mojang.logging.LogUtils;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -31,10 +19,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 // This needs to match the value in META-INF/neoforge.mods.toml.
 @Mod(SimpleNightVision.MODID)
@@ -42,7 +26,7 @@ public class SimpleNightVision {
     // Define the MODID for the rest of the project.
     public static final String MODID = "simplenightvision";
     // Connect to the NeoForge logger.
-    private static final Logger LOGGER = LogUtils.getLogger();
+    // private static final Logger LOGGER = LogUtils.getLogger();
 
     // The constructor that runs when the mod first loads.
     // NeoForge will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.

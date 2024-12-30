@@ -10,7 +10,6 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = SimpleNightVision.MODID, bus = EventBusSubscriber.Bus.MOD)

@@ -69,16 +69,10 @@ public class ModArmorItem extends ArmorItem {
     }
 
     private boolean hasValidHelmetOn(Holder<ArmorMaterial> material, Player player) {
-        /* for(ItemStack armorStack : player.getArmorSlots()) {
-            if(!(armorStack.getItem() instanceof ArmorItem)) {
-                return false;
-            }
-        }*/
-
         ArmorItem helmet = ((ArmorItem) player.getInventory().getArmor(3).getItem());
 
-        return helmet.getMaterial() == ModArmorMaterials.DIAMOND_ARMOR_MATERIAL ||
-               helmet.getMaterial() == ModArmorMaterials.NETHERITE_ARMOR_MATERIAL;
+        return helmet.getMaterial() == material ||
+               helmet.getMaterial() == material;
     }
 
     private boolean hasHelmetOn(Player player) {
