@@ -1,13 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "DDD",
-    "ELE",
-    "D D"
-  ],
+  "category": "equipment",
   "key": {
     "D": {
-      "item": "minecraft:netherite_ingot"
+      "item": "minecraft:diamond"
     },
     "E": {
       "item": "minecraft:emerald"
@@ -16,7 +12,13 @@
       "item": "minecraft:leather"
     }
   },
+  "pattern": [
+    "DDD",
+    "ELE",
+    "D D"
+  ],
   "result": {
-    "item": "simplenightvision:netherite_helmet"
+    "count": 1,
+    "id": "simplenightvision:diamond_helmet"
   }
 }

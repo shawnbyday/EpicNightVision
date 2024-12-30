@@ -2,69 +2,88 @@ package com.shawnbyday.simplenightvision.item.custom;
 
 import com.google.common.collect.ImmutableMap;
 import com.shawnbyday.simplenightvision.item.ModArmorMaterials;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class ModArmorItem extends ArmorItem {
-    private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP = (new ImmutableMap.Builder<ArmorMaterial,
-            MobEffectInstance>()).put(ModArmorMaterials.HELMET, new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 1))
-                                 .put(ModArmorMaterials.NETHERITE_HELMET, new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 1)).build();
-    public ModArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
-        super(material, slot, settings);
+    private static final Map<Holder<ArmorMaterial>, List<MobEffectInstance>> MATERIAL_TO_EFFECT_MAP =
+            (new ImmutableMap.Builder<Holder<ArmorMaterial>, List<MobEffectInstance>>())
+                    .put(ModArmorMaterials.DIAMOND_ARMOR_MATERIAL,
+                            List.of(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 1, false, false)))
+                    .put(ModArmorMaterials.NETHERITE_ARMOR_MATERIAL,
+                            List.of(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 1, false, false)))
+            .build();
+
+    public ModArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
+        super(material, type, properties);
     }
+
     @Override
-    public void onArmorTick(ItemStack stack, Level world, Player player) {
-        if(!world.isClientSide()) {
-            if(hasHelmetOn(player)) {
-                evaluateArmorEffects(player);
-            }
+    public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int slotId, boolean isSelected) {
+        if(entity instanceof Player player && !level.isClientSide() && hasHelmetOn(player)) {
+            evaluateArmorEffects(player);
         }
     }
 
     private void evaluateArmorEffects(Player player) {
-        for(Map.Entry<ArmorMaterial, MobEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-            ArmorMaterial mapArmorMaterial = entry.getKey();
-            MobEffectInstance mapStatusEffect = entry.getValue();
+        for(Map.Entry<Holder<ArmorMaterial>, List<MobEffectInstance>> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
+            Holder<ArmorMaterial> mapArmorMaterial = entry.getKey();
+            List<MobEffectInstance> mapEffect = entry.getValue();
 
-            if(hasCorrectHelmetOn(mapArmorMaterial, player)) {
-                addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
+            if(hasValidHelmetOn(mapArmorMaterial, player)) {
+                addEffectToPlayer(player, mapEffect);
             }
         }
     }
 
-    private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffectInstance mapStatusEffect) {
-        boolean hasPlayerEffect = player.hasEffect(mapStatusEffect.getEffect());
+    private void addEffectToPlayer(Player player, List<MobEffectInstance> mapEffect) {
+        boolean hasPlayerEffect = mapEffect.stream().allMatch(effect -> player.hasEffect(effect.getEffect()));
 
-        if(hasCorrectHelmetOn(mapArmorMaterial, player) && !hasPlayerEffect) {
-            player.addEffect(new MobEffectInstance(mapStatusEffect.getEffect(), mapStatusEffect.getDuration(), mapStatusEffect.getAmplifier()));
-        } else {
-            if(player.hasEffect(MobEffects.NIGHT_VISION)) {
-                int duration = Objects.requireNonNull(player.getEffect(MobEffects.NIGHT_VISION)).getDuration();
-                if (duration < 360) {
-                    player.addEffect(new MobEffectInstance(mapStatusEffect.getEffect(), mapStatusEffect.getDuration(), mapStatusEffect.getAmplifier()));
+        if(!hasPlayerEffect) {
+            for(MobEffectInstance effect : mapEffect) {
+                player.addEffect(new MobEffectInstance(effect.getEffect(), effect.getDuration(), effect.getAmplifier(),
+                        effect.isAmbient(), effect.isVisible()));
+            }
+        }
+        if(hasPlayerEffect) {
+            int duration = Objects.requireNonNull(player.getEffect(MobEffects.NIGHT_VISION)).getDuration();
+            if(duration < 250) {
+                for (MobEffectInstance effect : mapEffect) {
+                    player.addEffect(new MobEffectInstance(effect.getEffect(), effect.getDuration(), effect.getAmplifier(),
+                            effect.isAmbient(), effect.isVisible()));
                 }
             }
         }
+    }
+
+    private boolean hasValidHelmetOn(Holder<ArmorMaterial> material, Player player) {
+        /* for(ItemStack armorStack : player.getArmorSlots()) {
+            if(!(armorStack.getItem() instanceof ArmorItem)) {
+                return false;
+            }
+        }*/
+
+        ArmorItem helmet = ((ArmorItem) player.getInventory().getArmor(3).getItem());
+
+        return helmet.getMaterial() == ModArmorMaterials.DIAMOND_ARMOR_MATERIAL ||
+               helmet.getMaterial() == ModArmorMaterials.NETHERITE_ARMOR_MATERIAL;
     }
 
     private boolean hasHelmetOn(Player player) {
         ItemStack helmet = player.getInventory().getArmor(3);
 
         return !helmet.isEmpty();
-    }
-
-    private boolean hasCorrectHelmetOn(ArmorMaterial material, Player player) {
-        ArmorItem helmet = ((ArmorItem)player.getInventory().getArmor(3).getItem());
-
-        return helmet.getMaterial() == material;
     }
 }

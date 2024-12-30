@@ -1,5 +1,6 @@
 {
-  "item.simplenightvision.helmet": "Diamond Night Vision Helmet",
+  "item.simplenightvision.diamond_helmet": "Diamond Night Vision Helmet",
   "item.simplenightvision.netherite_helmet": "Netherite Night Vision Helmet",
-  "simplenightvision_tab": "Simple Night Vision"
+
+  "creativemodetab.simplenightvision.simple_night_vision_tab": "Simple Night Vision"
 }
